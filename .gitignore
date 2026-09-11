@@ -21,3 +21,6 @@ backups/
 
 .env
 *.env
+
+.env
+*.env
