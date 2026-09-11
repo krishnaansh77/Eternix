@@ -24,3 +24,5 @@ backups/
 
 .env
 *.env
+
+*.tsbuildinfo
