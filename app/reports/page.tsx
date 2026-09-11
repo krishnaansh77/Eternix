@@ -45,8 +45,6 @@ import {
   Upload,
   Filter,
 } from "lucide-react"
-import { mockPatients } from "@/lib/mock-data"
-
 type ReportType = "ecg" | "xray" | "mri" | "blood" | "other"
 
 interface Report {
@@ -60,90 +58,9 @@ interface Report {
   status: "processed" | "pending" | "failed"
 }
 
-const mockReports: Report[] = [
-  {
-    id: "r1",
-    patientId: "1",
-    patientName: "John Smith",
-    type: "ecg",
-    fileName: "ecg_scan_2024.pdf",
-    uploadedAt: "2024-01-15",
-    fileSize: "2.4 MB",
-    status: "processed",
-  },
-  {
-    id: "r2",
-    patientId: "2",
-    patientName: "Sarah Johnson",
-    type: "xray",
-    fileName: "chest_xray.png",
-    uploadedAt: "2024-01-14",
-    fileSize: "5.1 MB",
-    status: "processed",
-  },
-  {
-    id: "r3",
-    patientId: "3",
-    patientName: "Michael Chen",
-    type: "mri",
-    fileName: "brain_mri_series.dicom",
-    uploadedAt: "2024-01-13",
-    fileSize: "156 MB",
-    status: "processed",
-  },
-  {
-    id: "r4",
-    patientId: "4",
-    patientName: "Emily Davis",
-    type: "blood",
-    fileName: "blood_panel_results.pdf",
-    uploadedAt: "2024-01-12",
-    fileSize: "1.2 MB",
-    status: "processed",
-  },
-  {
-    id: "r5",
-    patientId: "1",
-    patientName: "John Smith",
-    type: "xray",
-    fileName: "spine_xray.png",
-    uploadedAt: "2024-01-11",
-    fileSize: "4.8 MB",
-    status: "pending",
-  },
-  {
-    id: "r6",
-    patientId: "5",
-    patientName: "Robert Wilson",
-    type: "ecg",
-    fileName: "holter_monitor.pdf",
-    uploadedAt: "2024-01-10",
-    fileSize: "3.2 MB",
-    status: "processed",
-  },
-  {
-    id: "r7",
-    patientId: "6",
-    patientName: "Lisa Anderson",
-    type: "mri",
-    fileName: "knee_mri.dicom",
-    uploadedAt: "2024-01-09",
-    fileSize: "98 MB",
-    status: "failed",
-  },
-  {
-    id: "r8",
-    patientId: "2",
-    patientName: "Sarah Johnson",
-    type: "blood",
-    fileName: "lipid_panel.pdf",
-    uploadedAt: "2024-01-08",
-    fileSize: "0.8 MB",
-    status: "processed",
-  },
-]
+const reports: Report[] = []
 
-const reportTypeConfig: Record<ReportType, { icon: React.ElementType; label: string; color: string }> = {
+const reportTypeConfig: Record<ReportType, { icon: React.ComponentType<{ className?: string }>; label: string; color: string }> = {
   ecg: { icon: Heart, label: "ECG", color: "bg-red-100 text-red-700" },
   xray: { icon: Scan, label: "X-Ray", color: "bg-blue-100 text-blue-700" },
   mri: { icon: Brain, label: "MRI", color: "bg-purple-100 text-purple-700" },
@@ -157,7 +74,7 @@ export default function ReportsPage() {
   const [statusFilter, setStatusFilter] = useState<string>("all")
   const [previewReport, setPreviewReport] = useState<Report | null>(null)
 
-  const filteredReports = mockReports.filter((report) => {
+  const filteredReports = reports.filter((report) => {
     const matchesSearch =
       report.patientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       report.fileName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -167,11 +84,11 @@ export default function ReportsPage() {
   })
 
   const stats = {
-    total: mockReports.length,
-    ecg: mockReports.filter((r) => r.type === "ecg").length,
-    xray: mockReports.filter((r) => r.type === "xray").length,
-    mri: mockReports.filter((r) => r.type === "mri").length,
-    pending: mockReports.filter((r) => r.status === "pending").length,
+    total: reports.length,
+    ecg: reports.filter((r) => r.type === "ecg").length,
+    xray: reports.filter((r) => r.type === "xray").length,
+    mri: reports.filter((r) => r.type === "mri").length,
+    pending: reports.filter((r) => r.status === "pending").length,
   }
 
   return (

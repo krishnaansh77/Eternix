@@ -23,11 +23,20 @@ New registrations require email verification before login. Local development def
 
 Set `JWT_COOKIE_SECURE=true` whenever the frontend is served over HTTPS.
 
-Create the local database once:
+Create the local database once. Flyway creates the schema only; it does not create users, demo accounts, profiles, reports, or relationships:
 
 ```bash
 createdb aarogyam
 ```
+
+To intentionally reset local development data, stop the backend and recreate only the local database:
+
+```bash
+dropdb --if-exists aarogyam
+createdb aarogyam
+```
+
+Never run that reset against a shared or production database. Do not add seed credentials or application data to Flyway migrations.
 
 Then start the backend from the `backend` directory:
 

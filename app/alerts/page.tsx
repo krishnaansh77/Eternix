@@ -44,85 +44,7 @@ interface Alert {
   data?: Record<string, string | number>
 }
 
-const mockAlerts: Alert[] = [
-  {
-    id: "a1",
-    type: "critical",
-    status: "active",
-    patientId: "1",
-    patientName: "John Smith",
-    title: "Critical Heart Rate Detected",
-    description: "Patient's heart rate has exceeded 150 BPM for over 10 minutes",
-    timestamp: "2024-01-15T10:30:00",
-    data: { heartRate: 158, duration: "12 min" },
-  },
-  {
-    id: "a2",
-    type: "high-risk",
-    status: "active",
-    patientId: "3",
-    patientName: "Michael Chen",
-    title: "High-Risk Patient Alert",
-    description: "Patient has multiple risk factors requiring immediate attention",
-    timestamp: "2024-01-15T09:45:00",
-    data: { riskScore: 8.5, factors: "3" },
-  },
-  {
-    id: "a3",
-    type: "abnormal-vitals",
-    status: "active",
-    patientId: "2",
-    patientName: "Sarah Johnson",
-    title: "Abnormal Blood Pressure",
-    description: "Systolic blood pressure reading above normal range",
-    timestamp: "2024-01-15T09:15:00",
-    data: { systolic: 165, diastolic: 95 },
-  },
-  {
-    id: "a4",
-    type: "low-confidence",
-    status: "acknowledged",
-    patientId: "4",
-    patientName: "Emily Davis",
-    title: "Low Confidence AI Diagnosis",
-    description: "AI diagnosis confidence below threshold - manual review required",
-    timestamp: "2024-01-15T08:30:00",
-    data: { confidence: "62%", diagnosis: "Arrhythmia" },
-  },
-  {
-    id: "a5",
-    type: "follow-up",
-    status: "active",
-    patientId: "5",
-    patientName: "Robert Wilson",
-    title: "Follow-up Reminder",
-    description: "Scheduled follow-up appointment is overdue",
-    timestamp: "2024-01-14T16:00:00",
-    data: { daysPast: 3 },
-  },
-  {
-    id: "a6",
-    type: "critical",
-    status: "resolved",
-    patientId: "6",
-    patientName: "Lisa Anderson",
-    title: "Oxygen Saturation Critical",
-    description: "SpO2 levels dropped below 90%",
-    timestamp: "2024-01-14T14:20:00",
-    data: { spo2: "88%", resolved: "Oxygen administered" },
-  },
-  {
-    id: "a7",
-    type: "abnormal-vitals",
-    status: "acknowledged",
-    patientId: "1",
-    patientName: "John Smith",
-    title: "Temperature Spike",
-    description: "Patient temperature elevated above 38.5°C",
-    timestamp: "2024-01-14T11:45:00",
-    data: { temperature: "39.1°C" },
-  },
-]
+const initialAlerts: Alert[] = []
 
 const alertTypeConfig: Record<AlertType, { icon: React.ElementType; color: string; bgColor: string; label: string }> = {
   critical: {
@@ -264,7 +186,7 @@ function AlertCard({ alert, onAcknowledge, onResolve, onViewPatient }: {
 
 export default function AlertsPage() {
   const router = useRouter()
-  const [alerts, setAlerts] = useState(mockAlerts)
+  const [alerts, setAlerts] = useState(initialAlerts)
   const [activeTab, setActiveTab] = useState("all")
 
   const handleAcknowledge = (id: string) => {
