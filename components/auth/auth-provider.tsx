@@ -15,7 +15,7 @@ type AuthUser = {
   name: string
   role: string
   email: string
-  accountType: 'doctor' | 'patient'
+  accountType: 'doctor' | 'patient' | 'admin'
 }
 
 type SignInPayload = {
@@ -34,10 +34,10 @@ type AuthContextValue = {
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
 
-function toAuthUser(user: { id: string; name: string; email: string; role: 'DOCTOR' | 'PATIENT' }): AuthUser {
+function toAuthUser(user: { id: string; name: string; email: string; role: 'DOCTOR' | 'PATIENT' | 'ADMIN' }): AuthUser {
   return {
     ...user,
-    accountType: user.role === 'PATIENT' ? 'patient' : 'doctor',
+    accountType: user.role === 'PATIENT' ? 'patient' : user.role === 'ADMIN' ? 'admin' : 'doctor',
   }
 }
 

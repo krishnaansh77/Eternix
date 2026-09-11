@@ -43,10 +43,12 @@ export default function DashboardPage() {
   }, [loadDashboard])
 
   useEffect(() => {
-    if (isReady && user?.role === "PATIENT") router.replace("/patient-dashboard")
+    if (!isReady) return
+    if (user?.role === "PATIENT") router.replace("/patient-dashboard")
+    if (user?.role === "ADMIN") router.replace("/admin")
   }, [isReady, router, user?.role])
 
-  if (!isReady || user?.role === "PATIENT") {
+  if (!isReady || user?.role === "PATIENT" || user?.role === "ADMIN") {
     return <div className="min-h-screen bg-background" />
   }
 

@@ -84,7 +84,7 @@ function toPatientReport(report: ApiReport): PatientReport {
 }
 
 export default function PatientDashboardPage() {
-  const { user, signOut } = useAuth()
+  const { isReady, user, signOut } = useAuth()
   const [reports, setReports] = useState<PatientReport[]>([])
   const [reportKind, setReportKind] = useState<ReportKind>("cbc")
   const [imagingKind, setImagingKind] = useState<ImagingKind>("xray")
@@ -97,6 +97,10 @@ export default function PatientDashboardPage() {
   const [isConnecting, setIsConnecting] = useState(false)
 
   useEffect(() => {
+    if (isReady && user?.role === "ADMIN") {
+      window.location.replace("/admin")
+      return
+    }
     apiRequest<ApiReport[]>("/api/reports/mine")
       .then((items) => setReports(items.map(toPatientReport)))
       .catch(() => setReports([]))

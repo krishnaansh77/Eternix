@@ -12,6 +12,9 @@ DATABASE_USERNAME=ayushpatel
 DATABASE_PASSWORD=
 JWT_SECRET=use-a-long-random-value-in-any-non-demo-environment
 JWT_EXPIRATION_MS=86400000
+AAROGYAM_ADMIN_EMAIL=admin@example.com
+AAROGYAM_ADMIN_PASSWORD=use-a-unique-12-character-password
+AAROGYAM_ADMIN_NAME=System Administrator
 UPLOADS_DIR=./uploads
 CBC_API_URL=http://127.0.0.1:8000
 CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
@@ -44,4 +47,4 @@ Then start the backend from the `backend` directory:
 mvn spring-boot:run
 ```
 
-The application validates its JPA mappings and runs Flyway migrations at startup. Do not put database credentials or `.env` files in source control.
+The application validates its JPA mappings and runs Flyway migrations at startup. If `AAROGYAM_ADMIN_EMAIL` and `AAROGYAM_ADMIN_PASSWORD` are set, startup creates or updates exactly that administrator account idempotently. Keep those values server-side and never expose them in frontend code or source control. Do not put database credentials or `.env` files in source control.
